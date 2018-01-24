@@ -40,7 +40,7 @@ public class SeleniumPageObjectTest {
 
         assertEquals(HEADER, indexPage.getHeaderText());
 
-        assertEquals(MAIN_BLOCK, indexPage.getMainText());
+        assertEquals(MAIN_BLOCK_TEXT, indexPage.getMainText());
 
         assertEquals(4, indexPage.getNumberOfImageBlocks());
 

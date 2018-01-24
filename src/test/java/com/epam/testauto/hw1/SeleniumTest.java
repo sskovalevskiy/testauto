@@ -47,6 +47,6 @@ public class SeleniumTest extends WebDriverSettings {
 
 //        8. Assert that there are the main header and the text below it on the Home Page
         assertEquals(HEADER, driver.findElement(By.cssSelector("h3.main-title")).getText());
-        assertEquals(MAIN_BLOCK, driver.findElement(By.cssSelector("p.main-txt")).getText());
+        assertEquals(MAIN_BLOCK_TEXT, driver.findElement(By.cssSelector("p.main-txt")).getText());
     }
 }
