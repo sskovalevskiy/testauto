@@ -8,6 +8,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static com.epam.testauto.Constants.*;
+import static com.epam.testauto.User.USER_LOGIN;
+import static com.epam.testauto.User.USER_NAME;
+import static com.epam.testauto.User.USER_PASS;
 import static org.junit.Assert.assertEquals;
 
 public class SeleniumPageObjectTest {
@@ -35,7 +38,7 @@ public class SeleniumPageObjectTest {
         indexPage.open();
         assertEquals(PAGE_TITLE, indexPage.getPageTitle());
 
-        indexPage.logInUser("epam", "1234");
+        indexPage.logInUser(USER_LOGIN, USER_PASS);
         assertEquals(USER_NAME, indexPage.getUserName());
 
         assertEquals(HEADER, indexPage.getHeaderText());
@@ -47,7 +50,7 @@ public class SeleniumPageObjectTest {
         assertEquals(4, indexPage.getTextBlocks().size());
 
         for (int i = 0; i < indexPage.getTextBlocks().size(); i++) {
-            assertEquals(TextBlock.values()[i], indexPage.getTextBlocks().get(i));
+            assertEquals(TextBlock.values()[i].text, indexPage.getTextBlocks().get(i).replaceAll("\n"," "));
         }
 
 

@@ -12,9 +12,6 @@ import static com.epam.testauto.Constants.PAGE_URL;
 public class IndexPage {
     private final WebDriver driver;
 
-    private final String username = "epam";
-    private final String password = "1234";
-
     private final By UI_PROFILE_MENU = By.cssSelector("li.dropdown.uui-profile-menu");
     private final By LOGIN_ID = By.id("Login");
     private final By PASSWORD_ID = By.id("Password");
@@ -45,10 +42,6 @@ public class IndexPage {
         return this;
     }
 
-    public IndexPage defaultUserLogin(){
-        return logInUser(username, password);
-    }
-
     public String getInnerText(By locator){
         return driver.findElement(locator).getText();
     }
@@ -71,7 +64,7 @@ public class IndexPage {
 
     public List<String> getTextBlocks(){
         List<WebElement> textBlocksElements = driver.findElements(TEXT_BLOCKS);
-        List<String> textBlocks = new ArrayList<String>();
+        List<String> textBlocks = new ArrayList<>();
         for (WebElement textBlock : textBlocksElements) {
             textBlocks.add(textBlock.getText());
         }
