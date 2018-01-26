@@ -1,46 +1,40 @@
 package com.epam.testauto.hw4;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.internal.Coordinates;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.actions;
-import static com.codeborne.selenide.Selenide.executeJavaScript;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.*;
 
 public class DatesPage extends Page {
 
     private SelenideElement leftSlider = $("a.ui-slider-handle:nth-of-type(1)");
     private SelenideElement rightSlider = $("a.ui-slider-handle:nth-of-type(2)");
+    private SelenideElement rangeLine = $("div[jdi-type='IRange']");
 
-    public void setSliderPositions(int left, int right) {
-//        actions().dragAndDropBy(leftSlider, 20, 0).perform();
+    public void checkSlidersFunctionality(int leftTargetPosition, int rightTargetPosition) {
 
-        int width = $("div[jdi-type='IRange']").getSize().width;
+        performMovingSliders(leftTargetPosition, rightTargetPosition);
 
-        Actions actions = new Actions(WebDriverRunner.getWebDriver());
-        actions.clickAndHold(leftSlider).moveByOffset(-100, 0).release().build().perform();
+        leftSlider.shouldHave(text(String.valueOf(leftTargetPosition)));
+        rightSlider.shouldHave(text(String.valueOf(rightTargetPosition)));
+    }
 
-//        new Actions(WebDriverRunner.getWebDriver()).clickAndHold().dragAndDropBy(leftSlider, 20, 0).perform();
+    private void performMovingSliders(int leftTargetPosition, int rightTargetPosition) {
+        rangeLine.scrollTo();
+        float step = rangeLine.getSize().width / 100f;
 
-        Point coordLeft = leftSlider.getCoordinates().inViewPort();
-        Point coordRight = rightSlider.getCoordinates().inViewPort();
+        int leftCurrentPosition = Integer.valueOf(leftSlider.getText());
+        int rightCurrentPosition = Integer.valueOf(rightSlider.getText());
 
-        Point coordLeft1 = leftSlider.getLocation();
-        Point coordRight1 = rightSlider.getLocation();
+        int xOffsetLeft = Math.round((leftTargetPosition - leftCurrentPosition - 1) * step);
+        int xOffsetRight = Math.round((rightTargetPosition - rightCurrentPosition - 1) * step);
 
-        Point coorL1 = leftSlider.getCoordinates().onPage();
-        Point coorR1 = rightSlider.getCoordinates().onPage();
-
-//        Point res = leftSlider.contextClick().getLocation().moveBy(-30, 0);
-//        leftSlider.click(-30, 0);
-
-
-        String s = "";
+        if (xOffsetLeft < xOffsetRight) {
+            actions().dragAndDropBy(leftSlider, xOffsetLeft, 0).perform();
+            actions().dragAndDropBy(rightSlider, xOffsetRight, 0).perform();
+        } else {
+            actions().dragAndDropBy(rightSlider, xOffsetRight, 0).perform();
+            actions().dragAndDropBy(leftSlider, xOffsetLeft, 0).perform();
+        }
     }
 }

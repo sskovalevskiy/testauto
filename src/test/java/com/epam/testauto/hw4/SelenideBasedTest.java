@@ -5,12 +5,11 @@ import com.codeborne.selenide.WebDriverRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.support.PageFactory;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.epam.testauto.Constants.*;
+import static com.epam.testauto.User.USER_LOGIN;
+import static com.epam.testauto.User.USER_PASS;
 
 public class SelenideBasedTest{
 
@@ -22,25 +21,21 @@ public class SelenideBasedTest{
     public void testPreparation(){
         Configuration.browser = "chrome";
         Configuration.startMaximized = true;
-
         Configuration.timeout = 6000;
         Configuration.pollingInterval = 200;
         Configuration.collectionsPollingInterval = 300;
 //        Configuration.holdBrowserOpen = true;
-//        Configuration.headless = true;
 
 //        1. Open test site by URL
         open(PAGE_URL);
 
-
 //        2. Perform login	username: epam, pass: 1234
-        indexPage.performLogInUser("epam", "1234");
-
+        indexPage.performLogInUser(USER_LOGIN, USER_PASS);
 
 //        3. Assert User name in the left-top side of screen that user is loggined	"PITER CHAILOVSKII"
         indexPage.checkUserName();
-
     }
+
     @Test
     public void testCase1() {
 
@@ -87,21 +82,21 @@ public class SelenideBasedTest{
 
 //        4. Open Service -> Dates		Page is opened
         indexPage.openPageByUsingHeaderMenu("Dates");
-//        5. Using drag-and-drop set Range sliders. left sliders - the most left position, right slider - the most rigth position	left - 0, right - 100	MAX range is set. Check sliders values.
-
-//        datesPage.setSliderPositions(0, 0);
-//        6. Using drag-and-drop set Range sliders. left sliders - the most left position, right slider - the most left position.	left - 0, right - 0	MIN-left range is set
-//        7. Using drag-and-drop set Range sliders. left sliders - the most rigth position, right slider - the most rigth position.	 left - 0, right - 0	MIN-right range is set
+//        5. Using drag-and-drop set Range sliders. left sliders - the most left position, right slider - the most rigth position
+//      	left - 0, right - 100	MAX range is set. Check sliders values.
+        datesPage.checkSlidersFunctionality(0, 100);
+//        6. Using drag-and-drop set Range sliders. left sliders - the most left position, right slider - the most left position.
+//      	left - 0, right - 0	MIN-left range is set
+        datesPage.checkSlidersFunctionality(0, 0);
+//        7. Using drag-and-drop set Range sliders. left sliders - the most rigth position, right slider - the most rigth position.
+//      	 left - 100, right - 100	MIN-right range is set
+        datesPage.checkSlidersFunctionality(100, 100);
 //        8. Using drag-and-drop set Range sliders.	left - 30, right - 70	Range is set. Check sliders values.
-
-
+        datesPage.checkSlidersFunctionality(30, 70);
     }
 
     @After
     public void tearDown(){
         WebDriverRunner.closeWebDriver();
     }
-
-
-
 }

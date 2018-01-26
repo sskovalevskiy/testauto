@@ -23,4 +23,5 @@ public class SelenideWebDriverSettings {
     public void closeBrowser() {
         WebDriverRunner.closeWebDriver();
     }
+
 }
