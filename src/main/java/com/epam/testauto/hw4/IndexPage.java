@@ -2,26 +2,61 @@ package com.epam.testauto.hw4;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import com.epam.testauto.TextBlock;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.epam.testauto.Constants.*;
+import static com.epam.testauto.User.USER_NAME;
 
-public class IndexPage implements Page {
+public class IndexPage extends Page {
 
-    private SelenideElement uiProfileMenu = $("li.dropdown.uui-profile-menu");
-    private SelenideElement loginField = $("#Login");
-    private SelenideElement passwordField = $("#Password");
-    private SelenideElement loginButton = $(".btn-login");
-    private SelenideElement user = $(".profile-photo > span");
-    private SelenideElement headerTitle = $("h3.main-title");
-    private SelenideElement mainBlockText = $("p.main-txt");
-    private SelenideElement serviceElementInHeader = $("li.dropdown > a.dropdown-toggle");
-    private SelenideElement serviceElementInLeftMenu = $("li.sub-menu > a");
+//    public IndexPage() {
+////        PageFactory.initElements(WebDriverRunner.getWebDriver(), IndexPage.class);
+//    }
+
+    @FindBy(css = "li.dropdown.uui-profile-menu")
+    private SelenideElement uiProfileMenu;
+//    private SelenideElement uiProfileMenu = $("li.dropdown.uui-profile-menu");
+
+    @FindBy(id = "#Login")
+    private SelenideElement loginField;
+//    private SelenideElement loginField = $("#Login");
+
+    @FindBy(id = "#Password")
+    private SelenideElement passwordField;
+//    private SelenideElement passwordField = $("#Password");
+
+    @FindBy(css = ".btn-login")
+    private SelenideElement loginButton;
+//    private SelenideElement loginButton = $(".btn-login");
+
+
+    @FindBy(css = ".profile-photo > span")
+    private SelenideElement user;
+//    private SelenideElement user = $(".profile-photo > span");
+
+    @FindBy(css = "h3.main-title")
+    private SelenideElement headerTitle;
+//    private SelenideElement headerTitle = $("h3.main-title");
+
+    @FindBy(css = "p.main-txt")
+    private SelenideElement mainBlockText;
+//    private SelenideElement mainBlockText = $("p.main-txt");
+
+    @FindBy(css = "li.dropdown > a.dropdown-toggle")
+    private SelenideElement serviceElementInHeader;
+//    private SelenideElement serviceElementInHeader = $("li.dropdown > a.dropdown-toggle");
+
+    @FindBy(css = "li.sub-menu > a")
+    private SelenideElement serviceElementInLeftMenu;
+//    private SelenideElement serviceElementInLeftMenu = $("li.sub-menu > a");
+
     private ElementsCollection imageBlocks = $$(".icons-benefit");
     private ElementsCollection textBlocks = $$(".benefit-txt");
     private ElementsCollection serviceBlockInHeader = $$("ul.dropdown-menu > li");
@@ -75,12 +110,10 @@ public class IndexPage implements Page {
         serviceButton.click();
     }
 
-    public Page openPageByUsingHeaderMenu(String pageName){
+    public void openPageByUsingHeaderMenu(String pageName) {
         serviceElementInHeader.click();
         serviceBlockInHeader.findBy(text(pageName)).click();
-        return new DifferentElementsPage();
     }
-
 
 
 }

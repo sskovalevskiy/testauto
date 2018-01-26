@@ -1,5 +1,5 @@
 package com.epam.testauto.hw4;
 
-public interface Page {
+public class Page {
 
 }
