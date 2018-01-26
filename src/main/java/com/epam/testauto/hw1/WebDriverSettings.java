@@ -21,7 +21,9 @@ public class WebDriverSettings {
         driver = new ChromeDriver(options);
 
 //        setting standard timeout within which web driver will wait page-elements
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
     }
 
     @After
