@@ -1,6 +1,7 @@
 package com.epam.testauto.hw1;
 
 import static com.epam.testauto.Constants.*;
+import static com.epam.testauto.User.USER_NAME;
 import static org.junit.Assert.assertEquals;
 
 import com.epam.testauto.TextBlock;
