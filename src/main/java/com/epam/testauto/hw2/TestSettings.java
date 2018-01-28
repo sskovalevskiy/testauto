@@ -1,4 +1,5 @@
 package com.epam.testauto.hw2;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,6 +14,16 @@ import static com.epam.testauto.Constants.WEB_DRIVER_PATH;
 public class TestSettings {
 
     public WebDriver driver;
+
+    protected By uiProfileMenu = By.cssSelector("li.dropdown.uui-profile-menu");
+    protected By login = By.id("Login");
+    protected By password = By.id("Password");
+    protected By loginBtn = By.cssSelector(".btn-login");
+    protected By user = By.cssSelector(".profile-photo > span");
+    protected By headerTitle = By.cssSelector("h3.main-title");
+    protected By mainBlockTxt = By.cssSelector("p.main-txt");
+    protected By imageBlocks = By.cssSelector(".icons-benefit");
+    protected By textBlocks = By.cssSelector(".benefit-txt");
 
 //    1. Use your first ‘SeleniumTest’ and refactor it in a such way, that the test uses all annotations and
 //       instructions listed below. Each annotation can contain the only 1 instruction.

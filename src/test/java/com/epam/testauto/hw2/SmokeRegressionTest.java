@@ -8,12 +8,13 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.epam.testauto.Constants.*;
 import static com.epam.testauto.TextBlock.*;
 import static com.epam.testauto.User.*;
 import static org.junit.Assert.assertEquals;
 
-public class SeleniumTest extends TestSettings {
+public class SmokeRegressionTest extends TestSettings {
 
     @DataProvider(name = "dataProvider", parallel = true)
     public Object[][] dataProvider() {
@@ -25,7 +26,7 @@ public class SeleniumTest extends TestSettings {
         };
     }
 
-//    1. Develop a dedicated test for asserting 4 texts below 4 pictures on the Index Page
+    //    1. Develop a dedicated test for asserting 4 texts below 4 pictures on the Index Page
 //    2. The test must be developed with help of the DataProvider.
 //    3. Run it in the parallel by methods through the configuring parameters in a @DataProvider annotation.
     @Test(dataProvider = "dataProvider")
@@ -37,20 +38,23 @@ public class SeleniumTest extends TestSettings {
     public void secondTest() {
 
 //        2. Assert Browser title	"Index page"
-        assertEquals(driver.getTitle(), PAGE_TITLE);
+        assertEquals(PAGE_TITLE, driver.getTitle());
+    }
 
+    @Test
+    public void thirdTest() {
 //        3. Perform login	username: epam, pass: 1234
-        driver.findElement(uiProfileMenu).click();
-        driver.findElement(login).sendKeys(USER_LOGIN);
-        driver.findElement(password).sendKeys(USER_PASS);
-        driver.findElement(loginBtn).click();
+        $(uiProfileMenu).click();
+        $(login).sendKeys(USER_LOGIN);
+        $(password).sendKeys(USER_PASS);
+        $(loginBtn).click();
 
 //        4. Assert User name in the left-top side of screen that user is loggined	"Piter Chailovskii"
         assertEquals(USER_NAME, driver.findElement(user).getText());
+    }
 
-//        5. Assert Browser title	"Index page"
-        assertEquals(PAGE_TITLE, driver.getTitle());
-
+    @Test
+    public void forthTest() {
 //        6. Assert that there are 4 images on the Home Page and they are displayed	(4 images)
         assertEquals(4, driver.findElements(imageBlocks).size());
 
