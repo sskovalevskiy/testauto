@@ -1,15 +1,21 @@
 package com.epam.testauto.hw4;
 
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
 public class DatesPage extends Page {
 
-    private SelenideElement leftSlider = $("a.ui-slider-handle:nth-of-type(1)");
-    private SelenideElement rightSlider = $("a.ui-slider-handle:nth-of-type(2)");
-    private SelenideElement rangeLine = $("div[jdi-type='IRange']");
+    @FindBy(css = "a.ui-slider-handle:nth-of-type(1)")
+    private SelenideElement leftSlider;
+
+    @FindBy(css = "a.ui-slider-handle:nth-of-type(2)")
+    private SelenideElement rightSlider;
+
+    @FindBy(css = "div[jdi-type='IRange']")
+    private SelenideElement rangeLine;
 
     public void checkSlidersFunctionality(int leftTargetPosition, int rightTargetPosition) {
 
@@ -29,7 +35,7 @@ public class DatesPage extends Page {
         int xOffsetLeft = Math.round((leftTargetPosition - leftCurrentPosition - 1) * step);
         int xOffsetRight = Math.round((rightTargetPosition - rightCurrentPosition - 1) * step);
 
-        if (xOffsetLeft < xOffsetRight) {
+        if (leftTargetPosition < rightCurrentPosition) {
             actions().dragAndDropBy(leftSlider, xOffsetLeft, 0).perform();
             actions().dragAndDropBy(rightSlider, xOffsetRight, 0).perform();
         } else {

@@ -2,7 +2,6 @@ package com.epam.testauto.hw4;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
@@ -17,6 +16,7 @@ public class SelenideWebDriverSettings {
         Configuration.timeout = 6000;
         Configuration.pollingInterval = 200;
         Configuration.collectionsPollingInterval = 300;
+        Configuration.holdBrowserOpen = true;
     }
 
     @AfterMethod

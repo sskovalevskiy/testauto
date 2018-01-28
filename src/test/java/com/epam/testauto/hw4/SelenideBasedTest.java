@@ -2,9 +2,9 @@ package com.epam.testauto.hw4;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import com.codeborne.selenide.junit.TextReport;
+import org.junit.*;
+import org.junit.rules.TestRule;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.epam.testauto.Constants.*;
@@ -13,18 +13,30 @@ import static com.epam.testauto.User.USER_PASS;
 
 public class SelenideBasedTest{
 
-    private IndexPage indexPage = new IndexPage();
-    private DifferentElementsPage differentElementsPage = new DifferentElementsPage();
-    private DatesPage datesPage = new DatesPage();
+    private IndexPage indexPage;
+    private DifferentElementsPage differentElementsPage;
+    private DatesPage datesPage;
 
-    @Before
-    public void testPreparation(){
+    @Rule
+    public TestRule report = new TextReport();
+
+    @BeforeClass
+    public static void setUpSuite() {
         Configuration.browser = "chrome";
         Configuration.startMaximized = true;
+
         Configuration.timeout = 6000;
         Configuration.pollingInterval = 200;
         Configuration.collectionsPollingInterval = 300;
 //        Configuration.holdBrowserOpen = true;
+    }
+
+    @Before
+    public void testPreparation(){
+
+        indexPage = page(IndexPage.class);
+        differentElementsPage = page(DifferentElementsPage.class);
+        datesPage = page(DatesPage.class);
 
 //        1. Open test site by URL
         open(PAGE_URL);
@@ -42,7 +54,7 @@ public class SelenideBasedTest{
 //        4. Check interface on Home page, it contains all needed elements.	4 - pictures, 4 texts under them, 2 text above
         indexPage.checkHeader();
         indexPage.checkMainText();
-        indexPage.checkPicktures();
+        indexPage.checkPictures();
         indexPage.checkTextBlocks();
 
 //        5. Click on "Service" subcategory in the HEADER and check that drop down contains options
