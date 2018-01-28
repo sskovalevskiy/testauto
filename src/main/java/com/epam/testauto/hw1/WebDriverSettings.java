@@ -8,13 +8,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.epam.testauto.Constants.WEB_DRIVER;
+import static com.epam.testauto.Constants.WEB_DRIVER_PATH;
+
 public class WebDriverSettings {
 
     public WebDriver driver;
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver.exe");
+        System.setProperty(WEB_DRIVER, WEB_DRIVER_PATH);
         ChromeOptions options = new ChromeOptions();
 //        Maximize Chrome browser window via options
         options.addArguments("start-maximized");

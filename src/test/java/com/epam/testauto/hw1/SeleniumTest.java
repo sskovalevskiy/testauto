@@ -1,7 +1,9 @@
 package com.epam.testauto.hw1;
 
 import static com.epam.testauto.Constants.*;
+import static com.epam.testauto.User.USER_LOGIN;
 import static com.epam.testauto.User.USER_NAME;
+import static com.epam.testauto.User.USER_PASS;
 import static org.junit.Assert.assertEquals;
 
 import com.epam.testauto.TextBlock;
@@ -22,8 +24,8 @@ public class SeleniumTest extends WebDriverSettings {
 
 //        3. Perform login	username: epam, pass: 1234
         driver.findElement(By.cssSelector("li.dropdown.uui-profile-menu")).click();
-        driver.findElement(By.id("Login")).sendKeys("epam");
-        driver.findElement(By.id("Password")).sendKeys("1234");
+        driver.findElement(By.id("Login")).sendKeys(USER_LOGIN);
+        driver.findElement(By.id("Password")).sendKeys(USER_PASS);
         driver.findElement(By.cssSelector(".btn-login")).click();
 
 //        4. Assert User name in the left-top side of screen that user is loggined	"Piter Chailovskii"
