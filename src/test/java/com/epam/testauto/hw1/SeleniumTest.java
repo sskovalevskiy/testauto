@@ -10,6 +10,7 @@ import com.epam.testauto.TextBlock;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
 import java.util.List;
 
 public class SeleniumTest extends WebDriverSettings {
@@ -20,7 +21,7 @@ public class SeleniumTest extends WebDriverSettings {
         driver.get(PAGE_URL);
 
 //        2. Assert Browser title	"Index page"
-        assertEquals(driver.getTitle(), PAGE_TITLE);
+        assertEquals(PAGE_TITLE, driver.getTitle());
 
 //        3. Perform login	username: epam, pass: 1234
         driver.findElement(By.cssSelector("li.dropdown.uui-profile-menu")).click();
