@@ -3,20 +3,19 @@ package com.epam.testauto.hw3;
 import com.epam.testauto.TextBlock;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static com.epam.testauto.Constants.*;
-import static com.epam.testauto.User.USER_LOGIN;
-import static com.epam.testauto.User.USER_NAME;
-import static com.epam.testauto.User.USER_PASS;
+import static com.epam.testauto.User.*;
 import static org.junit.Assert.assertEquals;
 
-public class SeleniumPageObjectTest {
+public class SeleniumPageObjectTestV2 {
 
     private WebDriver driver;
-    private IndexPage indexPage;
+    private IndexPageV2 indexPage;
 
     @BeforeClass
     public void setUp() {
@@ -24,7 +23,7 @@ public class SeleniumPageObjectTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        indexPage = new IndexPage(driver);
+        indexPage = PageFactory.initElements(driver, IndexPageV2.class);
     }
 
 
@@ -52,7 +51,5 @@ public class SeleniumPageObjectTest {
         for (int i = 0; i < indexPage.getTextBlocks().size(); i++) {
             assertEquals(TextBlock.values()[i].text, indexPage.getTextBlocks().get(i).replaceAll("\n"," "));
         }
-
-
     }
 }

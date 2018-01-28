@@ -1,7 +1,5 @@
 package com.epam.testauto.hw3;
 
-import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,31 +10,35 @@ import java.util.List;
 import static com.epam.testauto.Constants.PAGE_URL;
 
 public class IndexPageV2 {
+
     private final WebDriver driver;
 
-    private final By IMAGE_BLOCKS = By.cssSelector(".icons-benefit");
-    private final By TEXT_BLOCKS = By.cssSelector(".benefit-txt");
-
     @FindBy(css = "li.dropdown.uui-profile-menu")
-    private SelenideElement uiProfileMenu;
+    private WebElement uiProfileMenu;
 
-    @FindBy(id = "#Login")
-    private SelenideElement loginField;
+    @FindBy(id = "Login")
+    private WebElement loginField;
 
-    @FindBy(id = "#Password")
-    private SelenideElement passwordField;
+    @FindBy(id = "Password")
+    private WebElement passwordField;
 
     @FindBy(css = ".btn-login")
-    private SelenideElement loginButton;
+    private WebElement loginButton;
 
     @FindBy(css = ".profile-photo > span")
-    private SelenideElement user;
+    private WebElement user;
 
     @FindBy(css = "h3.main-title")
-    private SelenideElement headerTitle;
+    private WebElement headerTitle;
 
     @FindBy(css = "p.main-txt")
-    private SelenideElement mainBlockText;
+    private WebElement mainBlockText;
+
+    @FindBy(css = ".icons-benefit")
+    private List<WebElement> imageBlocks;
+
+    @FindBy(css = ".benefit-txt")
+    private List<WebElement> textBlocks;
 
     public IndexPageV2(WebDriver webDriver) {
         this.driver = webDriver;
@@ -74,16 +76,13 @@ public class IndexPageV2 {
     }
 
     public long getNumberOfImageBlocks(){
-        return driver.findElements(IMAGE_BLOCKS).size();
+        return imageBlocks.size();
     }
 
     public List<String> getTextBlocks(){
-        List<WebElement> textBlocksElements = driver.findElements(TEXT_BLOCKS);
-        List<String> textBlocks = new ArrayList<>();
-        for (WebElement textBlock : textBlocksElements) {
-            textBlocks.add(textBlock.getText());
-        }
-        return textBlocks;
+        List<String> textsInBlocks = new ArrayList<>();
+        textBlocks.forEach(textBlock -> textsInBlocks.add(textBlock.getText()));
+        return textsInBlocks;
     }
 
 
