@@ -1,38 +1,24 @@
 package com.epam.testauto.hw4;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.junit.TextReport;
-import org.junit.*;
-import org.junit.rules.TestRule;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import static com.codeborne.selenide.Selenide.*;
-import static com.epam.testauto.Constants.*;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
+import static com.epam.testauto.Constants.PAGE_URL;
 import static com.epam.testauto.User.USER_LOGIN;
 import static com.epam.testauto.User.USER_PASS;
 
-public class SelenideBasedTest{
+public class SelenideBasedTest extends SelenideWebDriverSettings {
 
     private IndexPage indexPage;
     private DifferentElementsPage differentElementsPage;
     private DatesPage datesPage;
 
-    @Rule
-    public TestRule report = new TextReport();
-
-    @BeforeClass
-    public static void setUpSuite() {
-        Configuration.browser = "chrome";
-        Configuration.startMaximized = true;
-
-        Configuration.timeout = 6000;
-        Configuration.pollingInterval = 200;
-        Configuration.collectionsPollingInterval = 300;
-//        Configuration.holdBrowserOpen = true;
-    }
-
     @Before
-    public void testPreparation(){
+    public void testPreparation() {
 
         indexPage = page(IndexPage.class);
         differentElementsPage = page(DifferentElementsPage.class);
@@ -90,7 +76,7 @@ public class SelenideBasedTest{
     }
 
     @Test
-    public void testCase2(){
+    public void testCase2() {
 
 //        4. Open Service -> Dates		Page is opened
         indexPage.openPageByUsingHeaderMenu("Dates");
@@ -108,7 +94,7 @@ public class SelenideBasedTest{
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         WebDriverRunner.closeWebDriver();
     }
 }

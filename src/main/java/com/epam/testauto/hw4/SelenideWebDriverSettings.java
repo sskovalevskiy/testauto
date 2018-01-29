@@ -2,25 +2,30 @@ package com.epam.testauto.hw4;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
+import com.codeborne.selenide.junit.TextReport;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
 
 public class SelenideWebDriverSettings {
 
+    @Rule
+    public TestRule report = new TextReport();
+
     @BeforeClass
-    public void setUpSettings() {
+    public static void setUp() {
         Configuration.browser = "chrome";
         Configuration.startMaximized = true;
 
         Configuration.timeout = 6000;
         Configuration.pollingInterval = 200;
         Configuration.collectionsPollingInterval = 300;
-        Configuration.holdBrowserOpen = true;
+//        Configuration.holdBrowserOpen = true;
     }
 
-    @AfterMethod
-    public void closeBrowser() {
+    @AfterClass
+    public static void closeBrowser() {
         WebDriverRunner.closeWebDriver();
     }
 
