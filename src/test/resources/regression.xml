@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="RegressionSuite" verbose="1">
+    <test name="RegressionTest">
+        <groups>
+            <run>
+                <include name="regression" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="com.epam.testauto.hw2.RegressionTest" />
+            <class name="com.epam.testauto.hw2.SmokeRegressionTest"/>
+        </classes>
+    </test>
+</suite>

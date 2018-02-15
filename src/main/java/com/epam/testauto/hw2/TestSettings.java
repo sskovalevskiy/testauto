@@ -13,7 +13,7 @@ import static com.epam.testauto.Constants.WEB_DRIVER_PATH;
 
 public class TestSettings {
 
-    public WebDriver driver;
+    public static WebDriver driver;
 
     protected By uiProfileMenu = By.cssSelector("li.dropdown.uui-profile-menu");
     protected By login = By.id("Login");
@@ -28,13 +28,13 @@ public class TestSettings {
 //    1. Use your first ‘SeleniumTest’ and refactor it in a such way, that the test uses all annotations and
 //       instructions listed below. Each annotation can contain the only 1 instruction.
 //    2. Create a dedicated TestNG config for particular test.
-    @BeforeSuite
+    @BeforeSuite(groups = {"smoke", "regression"})
     public void setUpSystemProperties() {
         System.setProperty(WEB_DRIVER, WEB_DRIVER_PATH);
     }
 
 
-    @BeforeTest
+    @BeforeTest(groups = {"smoke", "regression"})
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
 //        Maximize Chrome browser window via options
@@ -61,11 +61,12 @@ public class TestSettings {
         System.out.println(System.currentTimeMillis());
     }
 
-    @AfterTest
+    @AfterTest(groups = {"smoke", "regression"})
     public void close(){
         driver.close();
     }
-    @AfterSuite
+
+    @AfterSuite(groups = {"smoke", "regression"})
     public void tearDown() {
         if (driver.toString().contains("null")) {
             driver.quit();

@@ -13,7 +13,7 @@ import static com.epam.testauto.User.USER_NAME;
 import static com.epam.testauto.User.USER_PASS;
 import static org.junit.Assert.assertEquals;
 
-public class SeleniumPageObjectTest {
+public class SeleniumPageObjectTestV1 {
 
     private WebDriver driver;
     private IndexPage indexPage;
@@ -52,7 +52,5 @@ public class SeleniumPageObjectTest {
         for (int i = 0; i < indexPage.getTextBlocks().size(); i++) {
             assertEquals(TextBlock.values()[i].text, indexPage.getTextBlocks().get(i).replaceAll("\n"," "));
         }
-
-
     }
 }
