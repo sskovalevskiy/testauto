@@ -7,5 +7,5 @@ import org.openqa.selenium.support.FindBy;
 public class AbstractPage extends WebPage {
 
     @FindBy(tagName = "header")
-    public static Header header;
+    public Header header;
 }

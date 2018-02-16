@@ -13,7 +13,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 @JSite("https://jdi-framework.github.io/tests")
 public class JDISite extends WebSite {
 
-    @JPage(url = "/index.html", title = "Index Page")
+    @JPage(url = "/index.htm", title = "Index Page")
     public static IndexPage indexPage;
 
     @JPage(url = "/page2.htm", title = "Metal and Colors")
