@@ -10,7 +10,7 @@ import com.epam.testauto.hw7.sections.LoginForm;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.allure.annotations.Step;
 
-@JSite("https://jdi-framework.github.io/tests")
+@JSite(domain = "https://jdi-framework.github.io/tests")
 public class JDISite extends WebSite {
 
     @JPage(url = "/index.htm", title = "Index Page")

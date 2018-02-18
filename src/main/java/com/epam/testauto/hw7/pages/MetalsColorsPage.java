@@ -6,14 +6,14 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.RadioButtons;
 import com.epam.jdi.uitests.web.selenium.elements.complex.TextList;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
+import com.epam.testauto.hw7.JsonData;
 import com.epam.testauto.hw7.enums.*;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 public class MetalsColorsPage extends AbstractPage {
 
-    @Css(".vertical-group label")
+    @FindBy(css = ".vertical-group label")
     private CheckList element;
 
     @FindBy(css = "#odds-selector p")
@@ -52,34 +52,31 @@ public class MetalsColorsPage extends AbstractPage {
     @FindBy(css = ".panel-body-list.results > li")
     public TextList results;
 
-    public void chooseColors() {
-        colors.select(Colors.Red);
+    public void chooseColor(Colors color) {
+        colors.select(color);
     }
 
-    public void chooseVegetable() {
-        vegetables.select(Vegetables.Cucumber);
-        vegetables.select(Vegetables.Tomato);
-        vegetables.select(Vegetables.Salad);
+    public void chooseVegetables(Vegetables... vegetablesToSelect) {
+        for (Vegetables vegetable : vegetablesToSelect) {
+            vegetables.select(vegetable);
+        }
     }
 
-    public void chooseMetal() {
-        metals.select(Metals.Selen);
+    public void chooseMetal(Metals metal) {
+        metals.select(metal);
     }
 
-    public void chooseElement() {
-        element.select(Elements.Water);
-        element.select(Elements.Fire);
+    public void chooseElements(Elements... elements) {
+        element.select(elements);
     }
 
-    public void chooseRadios() {
-        odds.select(ValuesOdd.THREE.txt);
-        evens.select(ValuesEven.EIGHT.txt);
+    public void chooseRadioNumbers(String[] numbers) {
+        odds.select(numbers[0]);
+        evens.select(numbers[1]);
         calculateBtn.click();
     }
 
-    public void checkResult() {
-
-        results.getLabels().forEach(e ->
-                Assert.assertTrue(ResultText.getTextList().contains(e)));
+    public void checkResult(JsonData data) {
+        Assert.assertTrue(results.getLabels().containsAll(data.getStrings()));
     }
 }
