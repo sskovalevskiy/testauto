@@ -1,38 +1,33 @@
 package com.epam.testauto.hw7;
 
-import com.epam.testauto.hw7.enums.Colors;
-import com.epam.testauto.hw7.enums.Elements;
-import com.epam.testauto.hw7.enums.Metals;
-import com.epam.testauto.hw7.enums.Vegetables;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class JsonData {
     private String[] summary;
-    private Elements[] elements;
-    private Colors color;
-    private Metals metal;
-    private Vegetables[] vegetables;
+    private String[] elements;
+    private String color;
+    private String metal;
+    private String[] vegetables;
 
     public String[] getSummary() {
         return summary;
     }
 
-    public Elements[] getElements() {
+    public String[] getElements() {
         return elements;
     }
 
-    public Colors getColor() {
+    public String getColor() {
         return color;
     }
 
-    public Metals getMetal() {
+    public String getMetal() {
         return metal;
     }
 
-    public Vegetables[] getVegetables() {
+    public String[] getVegetables() {
         return vegetables;
     }
 

@@ -14,13 +14,13 @@ import org.testng.Assert;
 public class MetalsColorsPage extends AbstractPage {
 
     @FindBy(css = ".vertical-group label")
-    private CheckList element;
+    private CheckList<Elements> element;
 
     @FindBy(css = "#odds-selector p")
     public RadioButtons<ValuesOdd> odds;
+
     @FindBy(css = "#even-selector p")
     public RadioButtons<ValuesEven> evens;
-
 
     @JDropdown(
             root = @FindBy(css = ".metals"),
@@ -32,9 +32,10 @@ public class MetalsColorsPage extends AbstractPage {
     @JDropdown(
             root = @FindBy(css = ".colors"),
             list = @FindBy(tagName = "li"),
-            value = @FindBy(css = ".filter-option")
+            value = @FindBy(css = ".text")
     )
     public Dropdown<Colors> colors;
+
 
     @JDropdown(
             root = @FindBy(css = ".salad"),
@@ -42,6 +43,7 @@ public class MetalsColorsPage extends AbstractPage {
             value = @FindBy(css = ".salad button")
     )
     public Dropdown<Vegetables> vegetables;
+
 
     @FindBy(id = "calculate-button")
     public Button calculateBtn;
@@ -52,28 +54,15 @@ public class MetalsColorsPage extends AbstractPage {
     @FindBy(css = ".panel-body-list.results > li")
     public TextList results;
 
-    public void chooseColor(Colors color) {
-        colors.select(color);
-    }
+    public void submit(JsonData data) {
+        odds.select(data.getSummary()[0]);
+        evens.select(data.getSummary()[1]);
+        element.select(data.getElements());
 
-    public void chooseVegetables(Vegetables... vegetablesToSelect) {
-        for (Vegetables vegetable : vegetablesToSelect) {
-            vegetables.select(vegetable);
-        }
-    }
-
-    public void chooseMetal(Metals metal) {
-        metals.select(metal);
-    }
-
-    public void chooseElements(Elements... elements) {
-        element.select(elements);
-    }
-
-    public void chooseRadioNumbers(String[] numbers) {
-        odds.select(numbers[0]);
-        evens.select(numbers[1]);
-        calculateBtn.click();
+//        metals.select(Metals.Selen);
+//        metals.select(data.getMetal());
+//        colors.select(data.getColor());
+//        vegetables.select(data.getVegetables());
     }
 
     public void checkResult(JsonData data) {
