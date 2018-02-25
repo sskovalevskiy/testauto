@@ -66,6 +66,8 @@ public class MetalsColorsPage extends AbstractPage {
     }
 
     public void checkResult(JsonData data) {
+        // TODO what happens in case if results section consist of more rows that we expected ?
+        // TODO Assert should provide us with readable error message
         Assert.assertTrue(results.getLabels().containsAll(data.getStrings()));
     }
 }
