@@ -8,7 +8,7 @@ public class JsonData {
     private String[] summary;
     private String[] elements;
     private String color;
-    private String metal;
+    private String metals;
     private String[] vegetables;
 
     public String[] getSummary() {
@@ -24,7 +24,7 @@ public class JsonData {
     }
 
     public String getMetal() {
-        return metal;
+        return metals;
     }
 
     public String[] getVegetables() {
@@ -37,7 +37,7 @@ public class JsonData {
         strings.add("Summary: " + (Integer.parseInt(summary[0]) + Integer.parseInt(summary[1])));
         strings.add("Elements: " + Arrays.toString(elements).replace("[", "").replace("]", ""));
         strings.add("Color: " + color);
-        strings.add("Metal: " + metal);
+        strings.add("Metal: " + metals);
         strings.add("Vegetables: " + Arrays.toString(vegetables).replace("[", "").replace("]", ""));
         return strings;
     }
@@ -47,7 +47,7 @@ public class JsonData {
         return "Summary: " + (Integer.parseInt(summary[0]) + Integer.parseInt(summary[1])) + "\n" +
                 "Elements: " + Arrays.toString(elements).replaceAll("\\[|\\]", "") + "\n" +
                 "Color: " + color + "\n" +
-                "Metal: " + metal + "\n" +
+                "Metal: " + metals + "\n" +
                 "Vegetables: " + Arrays.toString(vegetables).replace("\\[|\\]", "");
     }
 }

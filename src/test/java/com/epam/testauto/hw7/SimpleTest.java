@@ -15,7 +15,7 @@ public class SimpleTest extends SimpleTestsInit {
 
     @DataProvider(name = "dataProvider")
     public Object[][] dataProvider() {
-        Map<String, JsonData> dataMap = JsonReader.readFile();
+        Map<String, JsonData> dataMap = MyJsonReader.readFile();
         Object[][] dataArray = new Object[dataMap.size()][1];
         Object[] values = dataMap.values().toArray();
         for (int i = 0; i < dataMap.size(); i++) {
@@ -34,10 +34,12 @@ public class SimpleTest extends SimpleTestsInit {
         metalsColorsPage.checkOpened();
     }
 
+//    dependsOn us used to prevent constant opening index page,
+//    logging and switching to Metals&Colors page in every data case
     @Test(dependsOnMethods = {"loginTest"}, dataProvider = "dataProvider")
     public void fillForm(JsonData data) {
         metalsColorsPage.submit(data);
-//        metalsColorsPage.checkResult(data);
+        metalsColorsPage.checkResult(data);
     }
 
     @AfterMethod(alwaysRun = true)

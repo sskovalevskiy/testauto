@@ -25,17 +25,16 @@ public class MetalsColorsPage extends AbstractPage {
     @JDropdown(
             root = @FindBy(css = ".metals"),
             list = @FindBy(css = "li"),
-            value = @FindBy(css = "span.caret")
+            value = @FindBy(css = ".caret")
     )
     public Dropdown<Metals> metals;
 
     @JDropdown(
             root = @FindBy(css = ".colors"),
             list = @FindBy(tagName = "li"),
-            value = @FindBy(css = ".text")
+            value = @FindBy(css = ".filter-option")
     )
     public Dropdown<Colors> colors;
-
 
     @JDropdown(
             root = @FindBy(css = ".salad"),
@@ -43,7 +42,6 @@ public class MetalsColorsPage extends AbstractPage {
             value = @FindBy(css = ".salad button")
     )
     public Dropdown<Vegetables> vegetables;
-
 
     @FindBy(id = "calculate-button")
     public Button calculateBtn;
@@ -58,11 +56,13 @@ public class MetalsColorsPage extends AbstractPage {
         odds.select(data.getSummary()[0]);
         evens.select(data.getSummary()[1]);
         element.select(data.getElements());
-
-//        metals.select(Metals.Selen);
-//        metals.select(data.getMetal());
-//        colors.select(data.getColor());
-//        vegetables.select(data.getVegetables());
+        colors.select(data.getColor());
+        vegetables.select(Vegetables.Salad);
+        for (String vegetable : data.getVegetables()) {
+            vegetables.select(vegetable);
+        }
+        metals.select(data.getMetal());
+        submitButton.click();
     }
 
     public void checkResult(JsonData data) {
