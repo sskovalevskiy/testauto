@@ -6,7 +6,7 @@ import org.testng.annotations.BeforeSuite;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 
-public class SimpleTestsInit extends TestNGBase {
+public class JdiFrameworkTestsInit extends TestNGBase {
 
     @BeforeSuite(alwaysRun = true)
     public static void setUp() {

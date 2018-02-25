@@ -3,7 +3,7 @@
 <suite name="Test suite" parallel="methods" thread-count="1">
     <test name="Tests" preserve-order="true">
         <classes>
-            <class name="com.epam.testauto.hw7.SimpleTest"/>
+            <class name="com.epam.testauto.hw7.JdiFrameworkTest"/>
         </classes>
     </test>
 </suite>
