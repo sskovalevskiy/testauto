@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
-public class DatesPage extends Page {
+public class DatesPage{
 
     @FindBy(css = "a.ui-slider-handle:nth-of-type(1)")
     private SelenideElement leftSlider;

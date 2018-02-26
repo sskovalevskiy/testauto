@@ -2,23 +2,40 @@ package com.epam.testauto.hw4;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.support.FindBy;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Condition.*;
 
-public class DifferentElementsPage extends Page {
+public class DifferentElementsPage{
 
-    private ElementsCollection checkboxes = $$("label.label-checkbox");
-    private ElementsCollection checkboxInputs = $$("label.label-checkbox > input");
-    private ElementsCollection radioButtons = $$(".label-radio");
-    private ElementsCollection radioButtonInputs = $$(".label-radio > input");
-    private SelenideElement dropdownColors = $("div.colors > select");
-    private SelenideElement defaultButton = $("button.uui-button");
-    private SelenideElement button = $("input[type='button'].uui-button");
-    private SelenideElement leftSection = $("div._mCS_1");
-    private SelenideElement rightSection = $("div._mCS_2");
-    private ElementsCollection logs = $$(".info-panel-section > ul.logs > li");
+    @FindBy(css = "label.label-checkbox")
+    private ElementsCollection checkboxes;
+
+    @FindBy(css = "label.label-checkbox > input")
+    private ElementsCollection checkboxInputs;
+
+    @FindBy(css = ".label-radio")
+    private ElementsCollection radioButtons;
+
+    @FindBy(css = ".label-radio > input")
+    private ElementsCollection radioButtonInputs;
+
+    @FindBy(css = "div.colors > select")
+    private SelenideElement dropdownColors;
+
+    @FindBy(css = "button.uui-button")
+    private SelenideElement defaultButton;
+
+    @FindBy(css = "input[type='button'].uui-button")
+    private SelenideElement button;
+
+    @FindBy(css = "div._mCS_1")
+    private SelenideElement leftSection;
+
+    @FindBy(css = "div._mCS_2")
+    private SelenideElement rightSection;
+    @FindBy(css = ".info-panel-section > ul.logs > li")
+    private ElementsCollection logs;
 
     public void checkElementsOnPage() {
         checkboxes.shouldHaveSize(4);

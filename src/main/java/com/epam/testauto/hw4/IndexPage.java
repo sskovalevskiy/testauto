@@ -6,11 +6,13 @@ import com.epam.testauto.TextBlock;
 import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
-import static com.codeborne.selenide.Condition.*;
-import static com.epam.testauto.Constants.*;
-import static com.epam.testauto.User.USER_NAME;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
+import static com.epam.testauto.Constants.SERVICE_BLOCK_ELEMENTS;
+import static com.epam.testauto.hw3.IndexPage.HEADER;
+import static com.epam.testauto.hw3.IndexPage.MAIN_BLOCK_TEXT;
 
-public class IndexPage extends Page {
+public class IndexPage{
 
     @FindBy(css = "li.dropdown.uui-profile-menu")
     private SelenideElement uiProfileMenu;
@@ -51,6 +53,9 @@ public class IndexPage extends Page {
     @FindBy(css = "ul.sub span")
     private ElementsCollection serviceBlockInLeftMenu;
 
+    @FindBy(css = ".logout")
+    private SelenideElement logout;
+
     public void performLogInUser(String username, String password) {
         uiProfileMenu.click();
         loginField.setValue(username);
@@ -58,8 +63,13 @@ public class IndexPage extends Page {
         loginButton.click();
     }
 
-    public void checkUserName() {
-        user.shouldHave(text(USER_NAME));
+    public void logout(){
+        uiProfileMenu.click();
+        logout.click();
+    }
+
+    public void checkUserName(String userName) {
+        user.shouldHave(text(userName));
     }
 
     public void checkHeader() {

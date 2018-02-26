@@ -1,77 +1,126 @@
 package com.epam.testauto.hw3;
 
-import org.openqa.selenium.By;
+import com.epam.testauto.TextBlock;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.epam.testauto.Constants.PAGE_URL;
+import static org.junit.Assert.assertEquals;
 
 public class IndexPage {
+    public static final String PAGE_TITLE = "Index Page";
+    public static final String HEADER = "EPAM FRAMEWORK WISHES…";
+
+    public static final String MAIN_BLOCK_TEXT = "LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO " +
+            "EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD " +
+            "EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT" +
+            " IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.";
+
+
     private final WebDriver driver;
 
-    private final By UI_PROFILE_MENU = By.cssSelector("li.dropdown.uui-profile-menu");
-    private final By LOGIN_ID = By.id("Login");
-    private final By PASSWORD_ID = By.id("Password");
-    private final By LOGIN_BTN = By.cssSelector(".btn-login");
-    private final By USER = By.cssSelector(".profile-photo > span");
-    private final By HEADER_TITLE = By.cssSelector("h3.main-title");
-    private final By MAIN_BLOCK_TEXT = By.cssSelector("p.main-txt");
-    private final By IMAGE_BLOCKS = By.cssSelector(".icons-benefit");
-    private final By TEXT_BLOCKS = By.cssSelector(".benefit-txt");
+    @FindBy(css = "li.dropdown.uui-profile-menu")
+    private WebElement uiProfileMenu;
+
+    @FindBy(id = "Login")
+    private WebElement loginField;
+
+    @FindBy(id = "Password")
+    private WebElement passwordField;
+
+    @FindBy(css = ".btn-login")
+    private WebElement loginButton;
+
+    @FindBy(css = ".profile-photo > span")
+    private WebElement user;
+
+    @FindBy(css = "h3.main-title")
+    private WebElement headerTitle;
+
+    @FindBy(css = "p.main-txt")
+    private WebElement mainBlockText;
+
+    @FindBy(css = ".icons-benefit")
+    private List<WebElement> imageBlocks;
+
+    @FindBy(css = ".benefit-txt")
+    private List<WebElement> textBlocks;
 
     public IndexPage(WebDriver webDriver) {
         this.driver = webDriver;
     }
 
-    public void open() {
-        driver.navigate().to(PAGE_URL);
+    public void open(String siteUrl) {
+        driver.navigate().to(siteUrl);
     }
 
     public String getPageTitle(){
         return driver.getTitle();
     }
 
-    public IndexPage logInUser(String username, String password) {
-        driver.findElement(UI_PROFILE_MENU).click();
-        driver.findElement(LOGIN_ID).sendKeys(username);
-        driver.findElement(PASSWORD_ID).sendKeys(password);
-        driver.findElement(LOGIN_BTN).click();
-        return this;
+    public void logInUser(String username, String password) {
+        uiProfileMenu.click();
+        loginField.sendKeys(username);
+        passwordField.sendKeys(password);
+        loginButton.click();
     }
 
-    public String getInnerText(By locator){
-        return driver.findElement(locator).getText();
+    public String getInnerText(WebElement locator){
+        return locator.getText();
     }
 
     public String getUserName(){
-        return getInnerText(USER);
+        return getInnerText(user);
     }
 
     public String getHeaderText(){
-        return getInnerText(HEADER_TITLE);
+        return getInnerText(headerTitle);
     }
 
     public String getMainText(){
-        return getInnerText(MAIN_BLOCK_TEXT);
+        return getInnerText(mainBlockText);
     }
 
     public long getNumberOfImageBlocks(){
-        return driver.findElements(IMAGE_BLOCKS).size();
+        return imageBlocks.size();
     }
 
     public List<String> getTextBlocks(){
-        List<WebElement> textBlocksElements = driver.findElements(TEXT_BLOCKS);
-        List<String> textBlocks = new ArrayList<>();
-        for (WebElement textBlock : textBlocksElements) {
-            textBlocks.add(textBlock.getText());
-        }
-        return textBlocks;
+        List<String> textsInBlocks = new ArrayList<>();
+        textBlocks.forEach(textBlock -> textsInBlocks.add(textBlock.getText()));
+        return textsInBlocks;
     }
 
 
+    public void checkPageTitle(String pageTitle) {
+        assertEquals(pageTitle, getPageTitle());
+    }
 
+    public void checkUsername(String userName) {
+        assertEquals(userName, getUserName());
+    }
+
+    public void checkHeaderText(String headerText) {
+        assertEquals(headerText, getHeaderText());
+    }
+
+    public void checkMainText(String mainBlockText) {
+        assertEquals(mainBlockText, getMainText());
+    }
+
+    public void checkNumberOfImages(int numberOfImages) {
+        assertEquals(numberOfImages, getNumberOfImageBlocks());
+    }
+
+    public void checkNumberOfTextBlocksAndInnerText(int numberOfTextblocks, TextBlock[] textBlocks) {
+        assertEquals(numberOfTextblocks, getTextBlocks().size());
+
+        for (int i = 0; i < getTextBlocks().size(); i++) {
+            assertEquals(textBlocks[i].text, getTextBlocks().get(i).replaceAll("\n", " "));
+        }
+    }
 
 }

@@ -1,19 +1,21 @@
 package com.epam.testauto.hw2;
 
-import com.epam.testauto.TextBlock;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import com.epam.testauto.hw3.IndexPage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.*;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.epam.testauto.Constants.*;
 import static com.epam.testauto.TextBlock.*;
-import static com.epam.testauto.User.*;
 import static org.junit.Assert.assertEquals;
 
-public class SeleniumTest extends TestSettings {
+public class SeleniumTest{
+
+    private WebDriver driver;
+    private IndexPage indexPage;
 
     @DataProvider(name = "dataProvider", parallel = true)
     public Object[][] dataProvider() {
@@ -25,47 +27,51 @@ public class SeleniumTest extends TestSettings {
         };
     }
 
-//    1. Develop a dedicated test for asserting 4 texts below 4 pictures on the Index Page
-//    2. The test must be developed with help of the DataProvider.
-//    3. Run it in the parallel by methods through the configuring parameters in a @DataProvider annotation.
-    @Test(dataProvider = "dataProvider")
-    public void firstTest(int index, String text) {
-        assertEquals(text, driver.findElements(textBlocks).get(index).getText().replaceAll("\n", " "));
+    //1. Use your first ‘SeleniumTest’ and refactor it in a such way, that the test uses all annotations and
+    //   instructions listed below. Each annotation can contain the only 1 instruction.
+    //2. Create a dedicated TestNG config for particular test.
+    @BeforeSuite
+    public void setUpSystemProperties() {
+        System.setProperty(WEB_DRIVER, WEB_DRIVER_PATH);
     }
 
-    @Test
-    public void secondTest() {
+    @BeforeTest
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        indexPage = PageFactory.initElements(driver, IndexPage.class);
+        // Open test site by URL	https://jdi-framework.github.io/tests
+        driver.get(SITE_URL);
+    }
 
-//        2. Assert Browser title	"Index page"
-        assertEquals(driver.getTitle(), PAGE_TITLE);
+    @BeforeMethod
+    public void printPageTitle(){
+        System.out.println(System.currentTimeMillis());
+    }
 
-//        3. Perform login	username: epam, pass: 1234
-        driver.findElement(uiProfileMenu).click();
-        driver.findElement(login).sendKeys(USER_LOGIN);
-        driver.findElement(password).sendKeys(USER_PASS);
-        driver.findElement(loginBtn).click();
+    //1. Develop a dedicated test for asserting 4 texts below 4 pictures on the Index Page
+    //2. The test must be developed with help of the DataProvider.
+    //3. Run it in the parallel by methods through the configuring parameters in a @DataProvider annotation.
+    @Test(dataProvider = "dataProvider")
+    public void checkTextsBelowPictures(int index, String text) {
+        assertEquals(text, indexPage.getTextBlocks().get(index).replaceAll("\n", " "));
+    }
 
-//        4. Assert User name in the left-top side of screen that user is loggined	"Piter Chailovskii"
-        assertEquals(USER_NAME, driver.findElement(user).getText());
+    @AfterMethod
+    public void printTime(){
+        System.out.println(driver.getTitle());
+    }
 
-//        5. Assert Browser title	"Index page"
-        assertEquals(PAGE_TITLE, driver.getTitle());
+    @AfterTest
+    public void close(){
+        driver.close();
+    }
 
-//        6. Assert that there are 4 images on the Home Page and they are displayed	(4 images)
-        assertEquals(4, driver.findElements(imageBlocks).size());
-
-//        7.1 Assert that there are 4 texts on the Home Page
-        List<WebElement> textInBlocks = driver.findElements(textBlocks);
-        assertEquals(4, textInBlocks.size());
-
-        for (int i = 0; i < textInBlocks.size(); i++) {
-            String textInTheBlock = textInBlocks.get(i).getText().replaceAll("\n", " ");
-//        7.2   and check them by getting texts 	(4 texts below of each image)
-            assertEquals(TextBlock.values()[i].text, textInTheBlock);
+    @AfterSuite
+    public void tearDown() {
+        if (driver.toString().contains("null")) {
+            driver.quit();
         }
-
-//        8. Assert that there are the main header and the text below it on the Home Page
-        assertEquals(HEADER, driver.findElement(headerTitle).getText());
-        assertEquals(MAIN_BLOCK_TEXT, driver.findElement(mainBlockTxt).getText());
     }
 }
