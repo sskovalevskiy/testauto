@@ -1,5 +1,6 @@
 package com.epam.testauto.hw7;
 
+import com.epam.testauto.hw7.enums.Pages;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
@@ -8,17 +9,18 @@ import org.testng.annotations.Test;
 import java.util.Map;
 
 import static com.epam.testauto.User.USER_NAME;
-import static com.epam.testauto.hw7.JDISite.*;
+import static com.epam.testauto.hw7.JDISite.indexPage;
+import static com.epam.testauto.hw7.JDISite.login;
+import static com.epam.testauto.hw7.JDISite.metalsColorsPage;
 
 // TODO-DONE(ADDED) where is gitignore file ???
 // TODO-DONE(ADDED) where is HW scenario's steps in your realization ?
-
 // TODO-DONE(RENAMED) such a strange name of class...
 public class JdiFrameworkTest extends JdiFrameworkTestsInit {
 
     @DataProvider(name = "dataProvider")
     public Object[][] dataProvider() {
-        Map<String, JsonData> dataMap = MyJsonReader.readFile();
+        Map<String, MetalsColorsFormData> dataMap = MyJsonReader.readFile();
         Object[][] dataArray = new Object[dataMap.size()][1];
         Object[] values = dataMap.values().toArray();
         for (int i = 0; i < dataMap.size(); i++) {
@@ -27,26 +29,21 @@ public class JdiFrameworkTest extends JdiFrameworkTestsInit {
         return dataArray;
     }
 
-    // TODO you have to use entity driving testing approach
-    @Test
-    public void loginTest() {
-        indexPage.open();
-        // TODO read the WH scenario carefully, you have to open pages via Menu class...
-        indexPage.checkOpened();
-        //    Login on JDI site as User
-        login();
-        Assert.assertEquals(indexPage.getUserName(), USER_NAME);
-        //    Open Metals & Colors page by Header menu
-        metalsColorsPage.open();
-        metalsColorsPage.checkOpened();
-    }
+    // TODO-DONE(DELETED) what is the reason why you created two tests with
+    // TODO-DONE(DELETED) dependsOn, instead of created one certain test ??
+    @Test(dataProvider = "dataProvider")
+    public void fillForm(MetalsColorsFormData data) { // TODO-DONE(RENAMED) what is the strange name of Class and parameter...
 
-    // TODO what is the reason why you created two tests with
-    // TODO dependsOn, instead of created one certain test ??
-//    dependsOn us used to prevent constant opening index page,
-//    logging and switching to Metals&Colors page in every data case
-    @Test(dependsOnMethods = {"loginTest"}, dataProvider = "dataProvider")
-    public void fillForm(JsonData data) { // TODO what is the strange name of Class and parameter...
+        indexPage.open();
+        indexPage.checkOpened();
+        // TODO-DONE you have to use entity driving testing approach
+        //    Login on JDI site as User
+        login(User.PITER_CHAILOVSKII);
+        Assert.assertEquals(indexPage.getUserName(), USER_NAME);
+        // TODO read the WH scenario carefully, you have to open pages via Menu class...
+        //    Open Metals & Colors page by Header menu
+        metalsColorsPage.header.menu.selectItem(Pages.METALS_COLORS);
+        metalsColorsPage.checkOpened();
 
 //    Fill form Metals & Colors by data below:
 //    Submit form Metals & Colors
@@ -58,7 +55,7 @@ public class JdiFrameworkTest extends JdiFrameworkTestsInit {
 
     @AfterMethod(alwaysRun = true)
     public void refreshPage() {
-        metalsColorsPage.refresh();
+        metalsColorsPage.header.loginForm.logout();
     }
 
 }

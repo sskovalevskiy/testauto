@@ -25,8 +25,8 @@ public class JDISite extends WebSite {
     public static Label profilePhoto;
 
     @Step
-    public static void login() {
+    public static void login(User user) {
         profilePhoto.click();
-        loginForm.loginAs(new User());
+        loginForm.loginAs(user);
     }
 }

@@ -6,7 +6,7 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.RadioButtons;
 import com.epam.jdi.uitests.web.selenium.elements.complex.TextList;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
-import com.epam.testauto.hw7.JsonData;
+import com.epam.testauto.hw7.MetalsColorsFormData;
 import com.epam.testauto.hw7.enums.*;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -52,7 +52,7 @@ public class MetalsColorsPage extends AbstractPage {
     @FindBy(css = ".panel-body-list.results > li")
     public TextList results;
 
-    public void submit(JsonData data) {
+    public void submit(MetalsColorsFormData data) {
         odds.select(data.getSummary()[0]);
         evens.select(data.getSummary()[1]);
         element.select(data.getElements());
@@ -65,7 +65,7 @@ public class MetalsColorsPage extends AbstractPage {
         submitButton.click();
     }
 
-    public void checkResult(JsonData data) {
+    public void checkResult(MetalsColorsFormData data) {
         // TODO-DONE what happens in case if results section consist of more rows that we expected ?
         Assert.assertEquals(results.getLabels().size(),data.getStrings().size(), "Results section contains wrong number of strings");
         // TODO-DONE Assert should provide us with readable error message

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class JsonData {
+public class MetalsColorsFormData {
     private String[] summary;
     private String[] elements;
     private String color;

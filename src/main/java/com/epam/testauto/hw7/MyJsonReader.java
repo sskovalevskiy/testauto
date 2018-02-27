@@ -14,12 +14,12 @@ import static com.epam.testauto.Constants.JSON_FILE_PATH;
 
 public class MyJsonReader {
 
-    private static Map<String, JsonData> dataMap = null;
+    private static Map<String, MetalsColorsFormData> dataMap = null;
     private static File file = new File(JSON_FILE_PATH);
 
-    public static Map<String, JsonData> readFile() {
+    public static Map<String, MetalsColorsFormData> readFile() {
         try (JsonReader jsonReader = new JsonReader(new FileReader(file))) {
-            Type token = new TypeToken<Map<String, JsonData>>() {{
+            Type token = new TypeToken<Map<String, MetalsColorsFormData>>() {{
             }}.getType();
             dataMap = new Gson().fromJson(jsonReader, token);
         } catch (IOException e) {

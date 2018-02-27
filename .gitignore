@@ -5,4 +5,4 @@ target/*
 testauto.iml
 
 .logs/*
-
+debug.log

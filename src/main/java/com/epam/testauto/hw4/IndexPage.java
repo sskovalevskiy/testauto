@@ -8,11 +8,13 @@ import org.openqa.selenium.support.FindBy;
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
-import static com.epam.testauto.Constants.SERVICE_BLOCK_ELEMENTS;
 import static com.epam.testauto.hw3.IndexPage.HEADER;
 import static com.epam.testauto.hw3.IndexPage.MAIN_BLOCK_TEXT;
 
 public class IndexPage{
+
+    public static final String[] SERVICE_BLOCK_ELEMENTS =
+            {"Support", "Dates", "Complex Table", "Simple Table", "Table With Pages", "Different Elements"};
 
     @FindBy(css = "li.dropdown.uui-profile-menu")
     private SelenideElement uiProfileMenu;
