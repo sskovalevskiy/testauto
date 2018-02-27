@@ -1,17 +1,14 @@
 package com.epam.testauto.hw7;
 
 import com.epam.testauto.hw7.enums.Pages;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Map;
 
-import static com.epam.testauto.User.USER_NAME;
-import static com.epam.testauto.hw7.JDISite.indexPage;
-import static com.epam.testauto.hw7.JDISite.login;
-import static com.epam.testauto.hw7.JDISite.metalsColorsPage;
+import static com.epam.testauto.hw7.JDISite.*;
+import static com.epam.testauto.hw7.User.PITER_CHAILOVSKII;
 
 public class JdiFrameworkTest extends JdiFrameworkTestsInit {
 
@@ -25,6 +22,7 @@ public class JdiFrameworkTest extends JdiFrameworkTestsInit {
         }
         return dataArray;
     }
+
     @Test(dataProvider = "dataProvider")
     public void fillForm(MetalsColorsFormData data) {
 
@@ -32,8 +30,8 @@ public class JdiFrameworkTest extends JdiFrameworkTestsInit {
         indexPage.checkOpened();
 
         //    Login on JDI site as User
-        login(User.PITER_CHAILOVSKII);
-        Assert.assertEquals(indexPage.getUserName(), USER_NAME);
+        login(PITER_CHAILOVSKII);
+        indexPage.header.loginForm.checkUserInfo(PITER_CHAILOVSKII);
 
         //    Open Metals & Colors page by Header menu
         metalsColorsPage.header.menu.selectItem(Pages.METALS_COLORS);

@@ -29,4 +29,6 @@ public class JDISite extends WebSite {
         profilePhoto.click();
         loginForm.loginAs(user);
     }
+
+
 }
