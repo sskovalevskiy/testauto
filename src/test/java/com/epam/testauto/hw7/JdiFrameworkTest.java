@@ -13,9 +13,6 @@ import static com.epam.testauto.hw7.JDISite.indexPage;
 import static com.epam.testauto.hw7.JDISite.login;
 import static com.epam.testauto.hw7.JDISite.metalsColorsPage;
 
-// TODO-DONE(ADDED) where is gitignore file ???
-// TODO-DONE(ADDED) where is HW scenario's steps in your realization ?
-// TODO-DONE(RENAMED) such a strange name of class...
 public class JdiFrameworkTest extends JdiFrameworkTestsInit {
 
     @DataProvider(name = "dataProvider")
@@ -28,28 +25,25 @@ public class JdiFrameworkTest extends JdiFrameworkTestsInit {
         }
         return dataArray;
     }
-
-    // TODO-DONE(DELETED) what is the reason why you created two tests with
-    // TODO-DONE(DELETED) dependsOn, instead of created one certain test ??
     @Test(dataProvider = "dataProvider")
-    public void fillForm(MetalsColorsFormData data) { // TODO-DONE(RENAMED) what is the strange name of Class and parameter...
+    public void fillForm(MetalsColorsFormData data) {
 
         indexPage.open();
         indexPage.checkOpened();
-        // TODO-DONE you have to use entity driving testing approach
+
         //    Login on JDI site as User
         login(User.PITER_CHAILOVSKII);
         Assert.assertEquals(indexPage.getUserName(), USER_NAME);
-        // TODO read the WH scenario carefully, you have to open pages via Menu class...
+
         //    Open Metals & Colors page by Header menu
         metalsColorsPage.header.menu.selectItem(Pages.METALS_COLORS);
         metalsColorsPage.checkOpened();
 
-//    Fill form Metals & Colors by data below:
-//    Submit form Metals & Colors
-        metalsColorsPage.submit(data); // TODO you should use entity driving and UI objects...
+        //    Fill form Metals & Colors by data below:
+        //    Submit form Metals & Colors
+        metalsColorsPage.submit(data);
 
-//    Result sections should contains data  below:
+        //    Result sections should contains data  below:
         metalsColorsPage.checkResult(data);
     }
 
